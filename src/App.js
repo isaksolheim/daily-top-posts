@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import PostsView from './components/PostsView';
+import SubSelector from './components/SubSelector';
 
 class App extends Component {
   constructor(props) {
@@ -28,16 +29,10 @@ class App extends Component {
     if (!isLoaded) {
       return <div>Loading...</div>
     } else {
-      console.log(items[0].data);
       return (
         <div className="App">
-          <h1>Top Pics</h1>
-          {items.map(item => (
-            <div key={item.data.id}>
-              <p>{item.data.title}</p>
-              <img src={item.data.thumbnail} />
-            </div>
-          ))};
+          <SubSelector /> 
+          <PostsView items={items} />
         </div>
       );
     }
