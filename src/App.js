@@ -8,19 +8,31 @@ class App extends Component {
     super(props);
     this.state = {
       items: [],
+      fetchUrl: 'https://www.reddit.com/r/pics/top/.json?count=20',
       isLoaded: false,
     }
+
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
   componentDidMount() {
-    fetch('https://www.reddit.com/r/pics/top/.json?count=20')
+    fetch(this.state.fetchUrl)
       .then(res => res.json())
       .then(json => {
         this.setState({
-          isLoaded: true,
           items: json.data.children, // items from json
+          isLoaded: true,
         })
       });
+  }
+
+  clickHandler() {
+    this.setState({
+      items: [],
+      fetchUrl: 'https://www.reddit.com/r/earthporn/top/.json?count=20',
+      isLoaded: false,
+    })
+    this.componentDidMount();
   }
 
   render() {
@@ -31,7 +43,7 @@ class App extends Component {
     } else {
       return (
         <div className="App">
-          <SubSelector /> 
+          <SubSelector clickHandler={this.clickHandler} /> 
           <PostsView items={items} />
         </div>
       );

@@ -1,14 +1,15 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 
-function SubSelector() {
+function SubSelector(props) {
   return(
     <div>
-      select sub:
-      <select>
-        <option>ree</option>
-        <option>pics</option>
-        <option>all</option>
-      </select>
+      <Button onClick={props.clickHandler}>
+        r/earthporn
+      </Button>
+      <Button onClick={props.clickHandler}>
+        r/pics
+      </Button>
     </div>
   );
 }
