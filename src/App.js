@@ -26,10 +26,12 @@ class App extends Component {
       });
   }
 
-  clickHandler() {
+  clickHandler(sub) {
+    // formats new json url, changes state and mounts again
+    var url = 'https://www.reddit.com/r/' + sub + '/top/.json?count=20';
     this.setState({
       items: [],
-      fetchUrl: 'https://www.reddit.com/r/earthporn/top/.json?count=20',
+      fetchUrl: url,
       isLoaded: false,
     })
     this.componentDidMount();
@@ -44,6 +46,7 @@ class App extends Component {
       return (
         <div className="App">
           <SubSelector clickHandler={this.clickHandler} /> 
+          <br />
           <PostsView items={items} />
         </div>
       );
