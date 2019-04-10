@@ -10,6 +10,7 @@ class App extends Component {
       items: [],
       fetchUrl: 'https://www.reddit.com/r/pics/top/.json?count=20',
       isLoaded: false,
+      currentSub: '',
     }
 
     this.clickHandler = this.clickHandler.bind(this);
@@ -30,22 +31,23 @@ class App extends Component {
     // formats new json url, changes state and mounts again
     var url = 'https://www.reddit.com/r/' + sub + '/top/.json?count=20';
     this.setState({
-      items: [],
       fetchUrl: url,
       isLoaded: false,
-    })
-    this.componentDidMount();
+      currentSub: sub,
+    }, function () {
+      this.componentDidMount();
+    });
   }
 
-  render() {
-    var { isLoaded, items } = this.state;
+    render() {
+    var { isLoaded, items, currentSub } = this.state;
 
     if (!isLoaded) {
       return <div>Loading...</div>
     } else {
       return (
         <div className="App">
-          <SubSelector clickHandler={this.clickHandler} /> 
+          <SubSelector clickHandler={this.clickHandler} currentSub={currentSub} /> 
           <br />
           <PostsView items={items} />
         </div>

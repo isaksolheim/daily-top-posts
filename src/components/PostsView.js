@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container';
 function PostsView(props) {
   return(
     <Container>
-      <h1>Top posts</h1>
       <div className='gallery'>
         {props.items.map(item => (
           <div key={item.data.id} className='gallery-image border border-white bg-light'>
