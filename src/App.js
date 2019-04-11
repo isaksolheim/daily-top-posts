@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 import PostsView from './components/PostsView';
 import SubSelector from './components/SubSelector';
+import ErrorPage from './components/ErrorPage';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       items: [],
-      fetchUrl: 'https://www.reddit.com/r/pics/top/.json?count=20',
+      fetchUrl: 'https://www.reddit.com/r/piassadasdcs/top/.json?count=20',
       isLoaded: false,
       currentSub: '',
+      error: false,
     }
 
     this.clickHandler = this.clickHandler.bind(this);
@@ -23,8 +25,15 @@ class App extends Component {
         this.setState({
           items: json.data.children, // items from json
           isLoaded: true,
+          error: false,
         })
-      });
+      })
+      .catch(error => {
+        this.setState({
+          isLoaded: true,
+          error: true,
+        })
+      })
   }
 
   clickHandler(sub) {
@@ -47,9 +56,11 @@ class App extends Component {
     } else {
       return (
         <div className="App">
-          <SubSelector clickHandler={this.clickHandler} currentSub={currentSub} /> 
+          <SubSelector clickHandler={this.clickHandler} /> 
           <br />
-          <PostsView items={items} />
+          {this.state.error 
+          ? <ErrorPage currentSub={currentSub} /> 
+          : <PostsView items={items} currentSub={currentSub} />}
         </div>
       );
     }

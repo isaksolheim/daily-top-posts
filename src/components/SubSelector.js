@@ -17,7 +17,6 @@ class SubSelector extends React.Component {
           /* runs clickhandler function IF there is any input. else does nothing */
           onClick={(this.state.inputValue === '') ? () => undefined : () => this.props.clickHandler(this.state.inputValue)} 
           className="btn-space">go</Button>
-        <h1>Browsing top posts for r/{this.props.currentSub}</h1>
       </div>
     );
   }
